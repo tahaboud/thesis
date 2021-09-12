@@ -30,6 +30,10 @@ class RegisterUserAPI(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def retrieve(self, request):
+        serializer = UserSerializer(request.user)
+        return Response({"user": serializer.data}, status=status.HTTP_202_ACCEPTED)
+
 
 class LoginAPI(generics.GenericAPIView):
     serializer_class = LoginSerializer
