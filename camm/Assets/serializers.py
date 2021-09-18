@@ -25,7 +25,7 @@ class EquipementSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Equipement
-        fields = ("id", "code", "localisation", "supplier", "brand", "serial_number", "is_online", "comment", "date_added", "last_updated", "created_by", "updated_by")
+        fields = ("id", "code", "localisation", "supplier", "brand", "serial_number", "comment", "date_added", "last_updated", "created_by", "updated_by")
         read_only_fields = ("id", "date_added", "last_updated")
 
     def update(self, instance, validated_data):
@@ -45,7 +45,7 @@ class ToolsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tools
-        fields = ("id", "full_name", "price", "shelf", "supplier", "available", "comment", "date_added", "last_updated", "created_by", "updated_by")
+        fields = ("id", "full_name", "number", "price", "shelf", "supplier", "comment", "date_added", "last_updated", "created_by", "updated_by")
         read_only_fields = ("id", "date_added", "last_updated")
 
     def update(self, instance, validated_data):

@@ -5,7 +5,7 @@ from django.conf import settings
 
 class MyAccountManager(BaseUserManager):
 
-    def create_user(self, first_name, last_name, email, is_chief, password=None):
+    def create_user(self, first_name, last_name, email, password=None):
         if not email:
             raise ValueError("Users must have an email address")
 
@@ -21,7 +21,6 @@ class MyAccountManager(BaseUserManager):
             username=first_name.lower()+last_name.lower(),
             first_name=first_name,
             last_name=last_name,
-            is_chief=is_chief,
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -70,7 +69,6 @@ class Account(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_chief = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     last_login = models.DateTimeField(
         verbose_name="last login", auto_now=True)

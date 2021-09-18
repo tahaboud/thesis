@@ -1,4 +1,4 @@
-import { axios } from "axios";
+import axios from "axios";
 import { tokenConfig } from "./authAction";
 
 export const addSupplier =
@@ -24,6 +24,19 @@ export const addSupplier =
       });
   };
 
+export const getSuppliers = () => (dispatch, getState) => {
+  dispatch({ type: "ASSET_LOADING" });
+
+  axios
+    .get("/api/assets/supplier/", tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: "SUPPLIER_GET_SUCCESS", payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: "SUPPLIER_GET_FAIL", payload: err.response.data });
+    });
+};
+
 export const addEquipement =
   ({ code, localisation, supplier, brand, serial_number, comment }) =>
   (dispatch, getState) => {
@@ -42,11 +55,25 @@ export const addEquipement =
       .post("/api/assets/equipement/", body, tokenConfig(getState))
       .then((res) => {
         dispatch({ type: "EQUIPEMENT_ADD_SUCCESS", payload: res.data });
+        dispatch(getEquipements());
       })
       .catch((err) => {
         dispatch({ type: "EQUIPEMENT_ADD_FAIL", payload: err.response.data });
       });
   };
+
+export const getEquipements = () => (dispatch, getState) => {
+  dispatch({ type: "ASSET_LOADING" });
+
+  axios
+    .get("/api/assets/equipement/", tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: "EQUIPEMENT_GET_SUCCESS", payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: "EQUIPEMENT_GET_FAIL", payload: err.response.data });
+    });
+};
 
 export const addTool =
   ({ full_name, number, price, shelf, supplier, comment }) =>
@@ -63,14 +90,28 @@ export const addTool =
     });
 
     axios
-      .post("/api/assets/tools", body, tokenConfig(getState))
+      .post("/api/assets/tools/", body, tokenConfig(getState))
       .then((res) => {
         dispatch({ type: "TOOL_ADD_SUCCESS", payload: res.data });
+        dispatch(getTools());
       })
       .catch((err) => {
         dispatch({ type: "TOOL_ADD_FAIL", payload: err.response.data });
       });
   };
+
+export const getTools = () => (dispatch, getState) => {
+  dispatch({ type: "ASSET_LOADING" });
+
+  axios
+    .get("/api/assets/tools/", tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: "TOOL_GET_SUCCESS", payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: "TOOL_GET_FAIL", payload: err.response.data });
+    });
+};
 
 export const addTreeStructure =
   ({ name, equipement }) =>
@@ -119,3 +160,16 @@ export const addWorkOrder =
         dispatch({ type: "WORKORDER_ADD_FAIL", payload: err.response.data });
       });
   };
+
+export const getWorkOrders = () => (dispatch, getState) => {
+  dispatch({ type: "ASSET_LOADING" });
+
+  axios
+    .get("/api/assets/workorder/", tokenConfig(getState))
+    .then((res) => {
+      dispatch({ type: "WORKORDER_GET_SUCCESS", payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: "WORKORDER_GET_FAIL", payload: err.response.data });
+    });
+};

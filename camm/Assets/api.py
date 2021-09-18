@@ -27,7 +27,7 @@ class SupplierAPI(viewsets.ModelViewSet):
     def retrieve(self, request):
         suppliers = Supplier.objects.all()
         serializer = SupplierSerializer(suppliers, many=True)
-        return Response(serializer.data, status=status.HTTP_302_FOUND)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class EquipementAPI(viewsets.ModelViewSet):
@@ -53,7 +53,7 @@ class EquipementAPI(viewsets.ModelViewSet):
     def retrieve(self, request):
         equipements = Equipement.objects.all()
         serializer = EquipementSerializer(equipements, many=True)
-        return Response(serializer.data, status=status.HTTP_302_FOUND)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ToolsAPI(viewsets.ModelViewSet):
 
@@ -77,7 +77,7 @@ class ToolsAPI(viewsets.ModelViewSet):
     def retrieve(self, request):
         tools = Tools.objects.all()
         serializer = ToolsSerializer(tools, many=True)
-        return Response(serlalizer.data, status=status.HTTP_302_FOUND)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 class WorkOrderAPI(viewsets.ModelViewSet):
 
@@ -100,8 +100,8 @@ class WorkOrderAPI(viewsets.ModelViewSet):
 
     def retrieve(self, request):
         workOrders = WorkOrder.objects.all()
-        serializer = WorkOrderSerializer(tools, many=True)
-        return Response(serlalizer.data, status=status.HTTP_302_FOUND)
+        serializer = WorkOrderSerializer(workOrders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class TreeStructureAPI(viewsets.ModelViewSet):
 
@@ -123,7 +123,7 @@ class TreeStructureAPI(viewsets.ModelViewSet):
     def retrieve(self, request, pk):
         treeStructures = Equipement.objects.get(pk=pk).treeStructure
         serializer = TreeStructureSerializer(tools, many=True)
-        return Response(serlalizer.data, status=status.HTTP_302_FOUND)
+        return Response(serlalizer.data, status=status.HTTP_200_OK)
 
 
 

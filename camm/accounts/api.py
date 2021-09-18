@@ -2,6 +2,7 @@ from rest_framework import serializers, viewsets, status, generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
 from .serializers import RegisterUserSerializer, LoginSerializer, UserSerializer
+from .models import Account
 
 class IsAdminOrNoCreate(permissions.BasePermission):
 
@@ -14,6 +15,11 @@ class IsAdminOrNoCreate(permissions.BasePermission):
 class RegisterUserAPI(viewsets.ModelViewSet):
     serializer_class = RegisterUserSerializer
     permission_classes = [IsAdminOrNoCreate]
+
+    def list(self, request):
+        users = Account.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
