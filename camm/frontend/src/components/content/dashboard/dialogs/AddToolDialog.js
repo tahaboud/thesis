@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { toolValidator } from "../../validators/assetValidator";
 import { useSelector, useDispatch } from "react-redux";
 import { addTool } from "../../../../actions/assetAction";
+import MenuItem from "@mui/material/MenuItem";
 
 const AddToolDialog = ({ open, setOpen }) => {
   const [name, setName] = useState("");
@@ -19,7 +20,8 @@ const AddToolDialog = ({ open, setOpen }) => {
   const [comment, setComment] = useState("");
   const [toolErrors, setToolErrors] = useState(null);
 
-  const { errors, data } = useSelector((state) => state.asset);
+  const { errors, data, suppliers } = useSelector((state) => state.asset);
+  const { stocks } = useSelector((state) => state.pref);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -129,31 +131,45 @@ const AddToolDialog = ({ open, setOpen }) => {
           helperText={toolErrors && toolErrors.price ? toolErrors.price : ""}
         />
         <TextField
-          autoFocus
-          margin="dense"
+          select
+          label="Select A Shelf"
           name="shelf"
-          label="Shelf"
-          type="text"
-          fullWidth
-          variant="standard"
+          value={shelf}
           onChange={onChange}
+          fullWidth
           error={toolErrors && toolErrors.shelf ? true : false}
-          helperText={toolErrors && toolErrors.shelf ? toolErrors.shelf : ""}
-        />
+          helperText={
+            toolErrors && toolErrors.shelf
+              ? toolErrors.shelf
+              : "Please select a shelf in the stock"
+          }
+        >
+          {stocks.map((stock) => (
+            <MenuItem key={stock.id} value={stock.id}>
+              {stock.name}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
-          autoFocus
-          margin="dense"
+          select
+          label="Select A Supplier"
           name="supplier"
-          label="Supplier"
-          type="text"
-          fullWidth
-          variant="standard"
+          value={supplier}
           onChange={onChange}
+          fullWidth
           error={toolErrors && toolErrors.supplier ? true : false}
           helperText={
-            toolErrors && toolErrors.supplier ? toolErrors.supplier : ""
+            toolErrors && toolErrors.supplier
+              ? toolErrors.supplier
+              : "Please select a supplier"
           }
-        />
+        >
+          {suppliers.map((supplier) => (
+            <MenuItem key={supplier.id} value={supplier.id}>
+              {supplier.full_name}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
           autoFocus
           margin="dense"

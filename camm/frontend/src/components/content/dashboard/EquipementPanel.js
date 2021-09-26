@@ -16,8 +16,9 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 const EquipementPanel = () => {
-  const { user } = useSelector((state) => state.auth);
-  const { equipements, data } = useSelector((state) => state.asset);
+  const { user, users } = useSelector((state) => state.auth);
+  const { equipements, suppliers, data } = useSelector((state) => state.asset);
+  const { localisations } = useSelector((state) => state.pref);
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   useEffect(() => {
@@ -65,6 +66,7 @@ const EquipementPanel = () => {
               <TableCell align="center">Brand</TableCell>
               <TableCell align="center">Serial Number</TableCell>
               <TableCell align="center">Comment</TableCell>
+              <TableCell align="center">Created By</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,13 +76,31 @@ const EquipementPanel = () => {
                   <TableCell component="th" scope="row">
                     {equipement.code}
                   </TableCell>
-                  <TableCell align="right">{equipement.localisation}</TableCell>
-                  <TableCell align="right">{equipement.supplier}</TableCell>
+                  <TableCell align="right">
+                    {localisations.map((localisation) => {
+                      if (localisation.id === equipement.localisation)
+                        return localisation.name;
+                    })}
+                  </TableCell>
+                  <TableCell align="right">
+                    {suppliers.map((supplier) => {
+                      if (supplier.id === equipement.supplier)
+                        return supplier.full_name;
+                    })}
+                  </TableCell>
                   <TableCell align="right">{equipement.brand}</TableCell>
                   <TableCell align="right">
                     {equipement.serial_number}
                   </TableCell>
-                  <TableCell align="right">{equipement.comment}</TableCell>
+                  <TableCell align="right">
+                    {equipement.comment ? equipement.comment : "N/A"}
+                  </TableCell>
+                  <TableCell align="right">
+                    {users.map((user) => {
+                      if (equipement.created_by === user.id)
+                        return user.username;
+                    })}
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

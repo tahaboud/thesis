@@ -17,7 +17,8 @@ import MuiAlert from "@mui/material/Alert";
 
 const ToolsPanel = () => {
   const { user } = useSelector((state) => state.auth);
-  const { tools, data } = useSelector((state) => state.asset);
+  const { tools, suppliers, data } = useSelector((state) => state.asset);
+  const { stocks } = useSelector((state) => state.pref);
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   useEffect(() => {
@@ -76,8 +77,17 @@ const ToolsPanel = () => {
                   </TableCell>
                   <TableCell align="right">{tool.number}</TableCell>
                   <TableCell align="right">{tool.price}</TableCell>
-                  <TableCell align="right">{tool.shelf}</TableCell>
-                  <TableCell align="right">{tool.supplier}</TableCell>
+                  <TableCell align="right">
+                    {stocks.map((stock) => {
+                      if (stock.id === tool.shelf) return stock.name;
+                    })}
+                  </TableCell>
+                  <TableCell align="right">
+                    {suppliers.map((supplier) => {
+                      if (supplier.id === tool.supplier)
+                        return supplier.full_name;
+                    })}
+                  </TableCell>
                   <TableCell align="right">{tool.comment}</TableCell>
                 </TableRow>
               ))}

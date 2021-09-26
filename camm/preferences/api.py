@@ -25,7 +25,7 @@ class StockAPI(viewsets.ModelViewSet):
     def retrieve(self, request):
         stocks = Stock.objects.all()
         serializer = StockSerializer(stocks, many=True)
-        return Response(serializer.data, status=status.HTTP_302_FOUND)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class LocalisationAPI(viewsets.ModelViewSet):
@@ -49,6 +49,6 @@ class LocalisationAPI(viewsets.ModelViewSet):
     def retrieve(self, request):
         localisations = Localisation.objects.all()
         serializer = StockSerializer(localisations, many=True)
-        return Response(serializer.data, status=status.HTTP_302_FOUND)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 

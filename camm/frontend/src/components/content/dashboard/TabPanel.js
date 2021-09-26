@@ -8,6 +8,10 @@ import Dashboard from "./Dashboard";
 import UserPanel from "./UserPanel";
 import EquipementPanel from "./EquipementPanel";
 import ToolsPanel from "./ToolsPanel";
+import SupplierPanel from "./SupplierPanel";
+import StockPanel from "./StockPanel";
+import LocalisationPanel from "./LocalisationPanel";
+import WorkOrderPanel from "./WorkOrderPanel";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,7 +60,7 @@ export default function VerticalTabs() {
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height: "80vh",
+        height: "70vh",
         minWidth: "100%",
       }}
     >
@@ -72,9 +76,10 @@ export default function VerticalTabs() {
         <Tab label="Users" {...a11yProps(1)} />
         <Tab label="Equipements" {...a11yProps(2)} />
         <Tab label="Tools" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} />
+        <Tab label="Suppliers" {...a11yProps(4)} />
+        <Tab label="Localisations" {...a11yProps(5)} />
+        <Tab label="Stocks" {...a11yProps(6)} />
+        <Tab label="Work Orders" {...a11yProps(7)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Dashboard />
@@ -89,13 +94,16 @@ export default function VerticalTabs() {
         <ToolsPanel />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Item Five
+        <SupplierPanel />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Item Six
+        <LocalisationPanel />
       </TabPanel>
       <TabPanel value={value} index={6}>
-        Item Seven
+        <StockPanel />
+      </TabPanel>
+      <TabPanel value={value} index={7}>
+        <WorkOrderPanel />
       </TabPanel>
     </Box>
   );

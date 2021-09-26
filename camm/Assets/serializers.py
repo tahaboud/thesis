@@ -57,7 +57,7 @@ class WorkOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkOrder
-        fields = ("id", "failed_piece", "repair_piece", "is_down", "date_created", "created_by", "maintenance_start_time", "maintenance_end_time")
+        fields = ("id", "equipement", "failed_piece", "repair_piece", "date_created", "created_by", "maintenance_start_time", "maintenance_end_time", "comment")
         read_only_fields = ("id", "date_created")
 
     def update(self, instance, validated_data):

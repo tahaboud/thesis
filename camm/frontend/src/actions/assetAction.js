@@ -18,6 +18,7 @@ export const addSupplier =
       .post("/api/assets/supplier/", body, tokenConfig(getState))
       .then((res) => {
         dispatch({ type: "SUPPLIER_ADD_SUCCESS", payload: res.data });
+        dispatch(getSuppliers());
       })
       .catch((err) => {
         dispatch({ type: "SUPPLIER_ADD_FAIL", payload: err.response.data });
@@ -135,9 +136,9 @@ export const addWorkOrder =
     equipement,
     failed_piece,
     repair_piece,
-    is_down,
     maintenance_start_time,
     maintenance_end_time,
+    comment,
   }) =>
   (dispatch, getState) => {
     dispatch({ type: "ASSET_LOADING" });
@@ -146,15 +147,16 @@ export const addWorkOrder =
       equipement,
       failed_piece,
       repair_piece,
-      is_down,
       maintenance_start_time,
       maintenance_end_time,
+      comment,
     });
 
     axios
       .post("/api/assets/workorder/", body, tokenConfig(getState))
       .then((res) => {
         dispatch({ type: "WORKORDER_ADD_SUCCESS", payload: res.data });
+        dispatch(getWorkOrders());
       })
       .catch((err) => {
         dispatch({ type: "WORKORDER_ADD_FAIL", payload: err.response.data });

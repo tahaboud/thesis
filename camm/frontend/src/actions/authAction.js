@@ -5,6 +5,7 @@ import {
   getTools,
   getWorkOrders,
 } from "./assetAction";
+import { getLocalisations, getStocks } from "./preferencesAction";
 
 export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: "USER_LOADING" });
@@ -18,6 +19,8 @@ export const loadUser = () => (dispatch, getState) => {
       dispatch(getTools());
       dispatch(getWorkOrders());
       dispatch(loadUsers());
+      dispatch(getStocks());
+      dispatch(getLocalisations());
     })
     .catch((err) => {
       dispatch({ type: "USER_LOAD_FAIL", payload: err.response.data });

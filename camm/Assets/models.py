@@ -2,8 +2,9 @@ from django.db import models
 from preferences import models as pModels
 from django.conf import settings
 
+
 class Supplier(models.Model):
-    full_name = models.CharField(max_length=50, blank=False, null=False)
+    full_name = models.CharField(max_length=50, blank=False, null=False, unique=True)
     address = models.CharField(max_length=50, blank=False, null=False)
     phone_number = models.CharField(max_length=20, blank=False, null=False)
     email = models.EmailField(max_length=50, blank=True, null=False)
@@ -44,12 +45,10 @@ class Tools(models.Model):
 
 class WorkOrder(models.Model):
     equipement = models.ForeignKey(Equipement, on_delete=models.CASCADE)
-    failed_piece = models.ManyToManyField(TreeStructure)
-    repair_piece = models.ManyToManyField(Tools)
-    is_down = models.BooleanField(blank=False, null=False)
+    failed_piece = models.CharField(max_length=100, null=False, blank=False)
+    repair_piece = models.CharField(max_length=100, null=False, blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     maintenance_start_time = models.DateTimeField(blank=False, null=False)
-    maintenance_end_tieme = models.DateTimeField(blank=False, null=False)
+    maintenance_end_time = models.DateTimeField(blank=False, null=False)
     comment = models.CharField(max_length=100, blank=True, null=True)
-

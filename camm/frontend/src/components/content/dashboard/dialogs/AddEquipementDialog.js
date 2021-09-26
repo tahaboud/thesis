@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { equipementValidator } from "../../validators/assetValidator";
 import { useSelector, useDispatch } from "react-redux";
 import { addEquipement } from "../../../../actions/assetAction";
+import MenuItem from "@mui/material/MenuItem";
 
 const AddEquipementDialog = ({ open, setOpen }) => {
   const [code, setCode] = useState("");
@@ -19,7 +20,8 @@ const AddEquipementDialog = ({ open, setOpen }) => {
   const [comment, setComment] = useState("");
   const [equipementErrors, setEquipementErrors] = useState(null);
 
-  const { errors, data } = useSelector((state) => state.asset);
+  const { errors, data, suppliers } = useSelector((state) => state.asset);
+  const { localisations } = useSelector((state) => state.pref);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,9 +63,10 @@ const AddEquipementDialog = ({ open, setOpen }) => {
       localisation,
       supplier,
       brand,
-      serial_number,
-      comment
+      serial_number
     );
+    console.log(isValid);
+    console.log(validationErrors);
     if (isValid) {
       dispatch(
         addEquipement({
@@ -94,7 +97,7 @@ const AddEquipementDialog = ({ open, setOpen }) => {
           autoFocus
           margin="dense"
           name="code"
-          label="Equipement's code"
+          label="Equipement's code *"
           type="text"
           fullWidth
           variant="standard"
@@ -107,14 +110,12 @@ const AddEquipementDialog = ({ open, setOpen }) => {
           }
         />
         <TextField
-          autoFocus
-          margin="dense"
+          select
+          label="Select Localisation *"
           name="localisation"
-          label="localisation"
-          type="text"
-          fullWidth
-          variant="standard"
+          value={localisation}
           onChange={onChange}
+          fullWidth
           error={
             equipementErrors && equipementErrors.localisation ? true : false
           }
@@ -123,28 +124,38 @@ const AddEquipementDialog = ({ open, setOpen }) => {
               ? equipementErrors.localisation
               : ""
           }
-        />
+        >
+          {localisations.map((localisation) => (
+            <MenuItem key={localisation.id} value={localisation.id}>
+              {localisation.name}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
-          autoFocus
-          margin="dense"
+          select
+          label="Select Supplier *"
           name="supplier"
-          label="Supplier"
-          type="text"
-          fullWidth
-          variant="standard"
+          value={supplier}
           onChange={onChange}
+          fullWidth
           error={equipementErrors && equipementErrors.supplier ? true : false}
           helperText={
             equipementErrors && equipementErrors.supplier
               ? equipementErrors.supplier
               : ""
           }
-        />
+        >
+          {suppliers.map((supplier) => (
+            <MenuItem key={supplier.id} value={supplier.id}>
+              {supplier.full_name}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
           autoFocus
           margin="dense"
           name="brand"
-          label="Brand"
+          label="Brand *"
           type="text"
           fullWidth
           variant="standard"
@@ -160,7 +171,7 @@ const AddEquipementDialog = ({ open, setOpen }) => {
           autoFocus
           margin="dense"
           name="serial_number"
-          label="Serial Number"
+          label="Serial Number *"
           type="text"
           fullWidth
           variant="standard"
@@ -178,7 +189,7 @@ const AddEquipementDialog = ({ open, setOpen }) => {
           autoFocus
           margin="dense"
           name="comment"
-          label="Comment"
+          label="Comment (Optional)"
           type="text"
           multiline
           fullWidth

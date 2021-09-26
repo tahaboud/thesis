@@ -11,7 +11,7 @@ export default function Footer() {
 }
 
 const StyledFooter = styled.footer`
-  min-height: 10em;
+  min-height: 5em;
   background-color: #757575;
   color: #ffffff;
   text-align: center;
