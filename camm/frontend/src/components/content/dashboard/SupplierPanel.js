@@ -59,6 +59,7 @@ const SupplierPanel = () => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
+              <TableCell>Code</TableCell>
               <TableCell>Name</TableCell>
               <TableCell align="center">Address</TableCell>
               <TableCell align="center">Phone Number</TableCell>
@@ -71,6 +72,9 @@ const SupplierPanel = () => {
             {suppliers &&
               suppliers.map((supplier) => (
                 <TableRow key={supplier.id}>
+                  <TableCell component="th" scope="row">
+                    {supplier.id}
+                  </TableCell>
                   <TableCell component="th" scope="row">
                     {supplier.full_name}
                   </TableCell>

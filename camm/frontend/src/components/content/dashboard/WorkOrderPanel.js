@@ -16,7 +16,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 const WorkOrderPanel = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, users } = useSelector((state) => state.auth);
   const { workOrders, equipements, data } = useSelector((state) => state.asset);
   const [open, setOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -79,11 +79,11 @@ const WorkOrderPanel = () => {
               <TableCell>Equipement</TableCell>
               <TableCell align="center">Failed Piece</TableCell>
               <TableCell align="center">Repair Piece</TableCell>
-              <TableCell align="center">Is Offline</TableCell>
               <TableCell align="center">Maintenance Start At</TableCell>
               <TableCell align="center">Maintenance End At</TableCell>
               <TableCell align="center">Comment</TableCell>
               <TableCell align="center">Work Order</TableCell>
+              <TableCell align="center">Created By</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -98,9 +98,6 @@ const WorkOrderPanel = () => {
                   </TableCell>
                   <TableCell align="right">{workOrder.failed_piece}</TableCell>
                   <TableCell align="right">{workOrder.repair_piece}</TableCell>
-                  <TableCell align="right">
-                    {workOrder.is_down ? "Yes" : "No"}
-                  </TableCell>
                   <TableCell align="right">
                     {workOrder.maintenance_start_time
                       .replace("T", " ")
@@ -119,6 +116,12 @@ const WorkOrderPanel = () => {
                     >
                       Download
                     </Button>
+                  </TableCell>
+                  <TableCell align="right">
+                    {users.map((user) => {
+                      if (user.id === workOrder.created_by)
+                        return user.username;
+                    })}
                   </TableCell>
                 </TableRow>
               ))}

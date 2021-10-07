@@ -18,7 +18,6 @@ const AddWorkOrderDialog = ({ open, setOpen }) => {
   const [equipement, setEquipement] = useState("");
   const [failed_piece, setFailedPiece] = useState("");
   const [repair_piece, setRepairPiece] = useState("");
-  const [is_down, setIsDown] = useState(false);
   const [startTime, setStartTime] = useState(
     new Date("2014-08-18T21:11:54").toISOString().replace("Z", "")
   );
@@ -50,9 +49,6 @@ const AddWorkOrderDialog = ({ open, setOpen }) => {
         break;
       case "repair_piece":
         setRepairPiece(e.target.value);
-        break;
-      case "is_down":
-        setIsDown(e.target.value);
         break;
       case "maintenance_start_time":
         setStartTime(e.target.value);

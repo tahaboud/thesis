@@ -16,7 +16,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 const ToolsPanel = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, users } = useSelector((state) => state.auth);
   const { tools, suppliers, data } = useSelector((state) => state.asset);
   const { stocks } = useSelector((state) => state.pref);
   const [open, setOpen] = useState(false);
@@ -66,6 +66,7 @@ const ToolsPanel = () => {
               <TableCell align="center">Shelf</TableCell>
               <TableCell align="center">Supplier</TableCell>
               <TableCell align="center">Comment</TableCell>
+              <TableCell align="center">Created By</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -88,7 +89,14 @@ const ToolsPanel = () => {
                         return supplier.full_name;
                     })}
                   </TableCell>
-                  <TableCell align="right">{tool.comment}</TableCell>
+                  <TableCell align="right">
+                    {tool.comment ? tool.comment : "N/A"}
+                  </TableCell>
+                  <TableCell align="right">
+                    {users.map((user) => {
+                      if (user.id === tool.created_by) return user.username;
+                    })}
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

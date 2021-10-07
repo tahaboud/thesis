@@ -1,7 +1,7 @@
 from rest_framework import serializers, viewsets, status, generics, permissions
 from rest_framework.response import Response
-from .serializers import SupplierSerializer, EquipementSerializer, ToolsSerializer, TreeStructureSerializer, WorkOrderSerializer
-from .models import Supplier, Equipement, Tools, WorkOrder, TreeStructure
+from .serializers import SupplierSerializer, EquipementSerializer, ToolsSerializer, WorkOrderSerializer
+from .models import Supplier, Equipement, Tools, WorkOrder
 from accounts.models import Account
 from reportlab.pdfgen import canvas
 import time

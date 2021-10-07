@@ -45,14 +45,7 @@ export const equipementValidator = (
   return { isValid, validationErrors };
 };
 
-export const toolValidator = (
-  name,
-  number,
-  price,
-  shelf,
-  supplier,
-  comment
-) => {
+export const toolValidator = (name, number, price, shelf, supplier) => {
   let isValid = true;
   let validationErrors = {};
 
@@ -89,13 +82,6 @@ export const toolValidator = (
     validationErrors = {
       ...validationErrors,
       shelf: "This field is required",
-    };
-  }
-  if (validator.isEmpty(comment)) {
-    isValid = false;
-    validationErrors = {
-      ...validationErrors,
-      comment: "This field is required",
     };
   }
   return { isValid, validationErrors };

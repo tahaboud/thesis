@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Supplier, Equipement, TreeStructure, Tools, WorkOrder
+from .models import Supplier, Equipement,Tools, WorkOrder
 
 
 class SupplierSerializer(serializers.ModelSerializer):
@@ -31,14 +31,6 @@ class EquipementSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         validated_data.pop("created_by", None)
         return super().update(instance, validated_data)
-
-
-class TreeStructureSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = TreeStructure
-        fields = ("id", "name", "equipement")
-        read_only_fields = ("id",)
 
 
 class ToolsSerializer(serializers.ModelSerializer):

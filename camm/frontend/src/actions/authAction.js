@@ -49,6 +49,8 @@ export const login = (email, password) => (dispatch, getState) => {
       dispatch(getTools());
       dispatch(getWorkOrders());
       dispatch(loadUsers());
+      dispatch(getStocks());
+      dispatch(getLocalisations());
     })
     .catch((err) => {
       dispatch({ type: "LOGIN_FAIL", payload: err.response.data });

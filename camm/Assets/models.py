@@ -25,11 +25,6 @@ class Equipement(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="+")
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="+")
-    
-
-class TreeStructure(models.Model):
-    name = models.CharField(max_length=50, blank=False, null=False)
-    equipement = models.ForeignKey(Equipement, on_delete=models.CASCADE)
 
 class Tools(models.Model):
     full_name = models.CharField(max_length=50, blank=False, null=False)
@@ -37,7 +32,7 @@ class Tools(models.Model):
     price = models.IntegerField(blank=False, null=False)
     shelf = models.ForeignKey(pModels.Stock, on_delete=models.CASCADE)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=100, blank=False, null=False)
+    comment = models.CharField(max_length=100, blank=True, null=False)
     date_added = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="+")

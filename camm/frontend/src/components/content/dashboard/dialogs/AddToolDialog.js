@@ -63,8 +63,7 @@ const AddToolDialog = ({ open, setOpen }) => {
       number,
       price,
       shelf,
-      supplier,
-      comment
+      supplier
     );
     if (isValid) {
       dispatch(
@@ -93,10 +92,9 @@ const AddToolDialog = ({ open, setOpen }) => {
           To add a tool please fill the form bellow.
         </DialogContentText>
         <TextField
-          autoFocus
           margin="dense"
           name="name"
-          label="Tool's Name"
+          label="Tool's Name *"
           type="text"
           fullWidth
           variant="standard"
@@ -107,10 +105,9 @@ const AddToolDialog = ({ open, setOpen }) => {
           }
         />
         <TextField
-          autoFocus
           margin="dense"
           name="number"
-          label="Quantity"
+          label="Quantity *"
           type="text"
           fullWidth
           variant="standard"
@@ -119,10 +116,9 @@ const AddToolDialog = ({ open, setOpen }) => {
           helperText={toolErrors && toolErrors.number ? toolErrors.number : ""}
         />
         <TextField
-          autoFocus
           margin="dense"
           name="price"
-          label="Price"
+          label="Price *"
           type="text"
           fullWidth
           variant="standard"
@@ -171,10 +167,9 @@ const AddToolDialog = ({ open, setOpen }) => {
           ))}
         </TextField>
         <TextField
-          autoFocus
           margin="dense"
           name="comment"
-          label="Comment"
+          label="Comment (Optional)"
           type="text"
           multiline
           fullWidth
